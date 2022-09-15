@@ -1,5 +1,15 @@
-//Create a var to reference the "name" 
-const nameField = document.getElementById('name').focus();
+//Create a var to reference the "name"
+const nameField = document.getElementById('name');
+const emailInput = document.getElementById("email");
+const registerForActivitiesFieldset = document.getElementById("activities");
+const cardNumberInput = document.getElementById("cc-num");
+const zipInput = document.getElementById("zip");
+const cvvInput = document.getElementById("cvv");
+
+
+// focusing name
+nameField.focus();
+
 //const jobRole = document.getElementById('select');
 //const otherJobRole = document.getElementsByTagName('input');
 
@@ -9,15 +19,15 @@ const jobRole = document.querySelectorAll('#title');
 const fieldset = document.querySelectorAll('fieldset');
 const otherJobRole = document.getElementById('other-job-role');
 otherJobRole.style.display = 'none';
-jobRole.addEventLiistener('click', () => {
-  if (e.target.value === 'other') {
-    otherJobRole.style.display = 'block';
-  }
-})
+// jobRole.addEventListener('click', () => {
+//   if (e.target.value === 'other') {
+//     otherJobRole.style.display = 'block';
+//   }
+// })
 
 //T-Shirt Info Section
 color.disabled = true;
-design.addEventLiistener('change', (e) => {
+design.addEventListener('change', (e) => {
   color.disabled = false;
   for (let i = 1; i < color.length; i ++) {
     const targetValue = e.target.value;
@@ -37,32 +47,28 @@ design.addEventLiistener('change', (e) => {
 
 //Form Validation
 function nameValidation() {
-  const nameInput = document.getElementById('name');
-  const regex = /^\D\w+\s\w+\D$?;
-  if (regex.test(nameInput.value)) {
-    nameInput.parentElement.className = "valid";
-    return true;
-  } else {
-    nameInput.parentElement.className = "not-valid";
+  let nameValue = nameField.value;
+  let regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
+  if(!regName.test(nameValue)){
     return false;
+  } else{
+    return true;
   }
 }
 
 //Name Validation
 function emailValidation() {
-  const emailInput = document.getElementById("email");
-  const regex = /^\w+@\w+\.com$/;
+  
+  const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   if (regex.test(emailInput.value)) {
-    emailInput.parentElement.className = "valid";
     return true;
   } else {
-    emailInput.parentElement.className = "not-valid";
     return false;
   }
 }
 
 function registration() {
-  for (let i = 0; i < checkboxes.length i++) {
+  for (let i = 0; i < checkboxes.length; i++) {
 
   }
 }
@@ -92,10 +98,11 @@ function ccValidation() {
 //Event Listener ccValidation
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
-  if(nameValidation() && emailValidation() && ccValidation()) {
-} else {
   e.preventDefault();
-} 
+  
+  let nameOutput = nameValidation();
+  let emailOutput = emailValidation();
+
 });
 
 //Accessiblity
