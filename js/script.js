@@ -45,7 +45,32 @@ design.addEventListener('change', (e) => {
   }
 })
 
+
+//Register for Activities
+function registration() {
+  for (let i = 0; i < checkboxes.length; i++) {
+
+  }
+}
+
+//Payment Info
+
+function ccValidation() {
+  if (PaymentMethodChangeEvent.value === "credit-card") {
+    if (cardNumber() && zipcode() && cvv()) {
+      return true;
+    } else {
+      return false;
+    }
+    } else {
+      return true;
+  }
+}
+
+*/
 //Form Validation****
+
+//Name
 function nameValidation() {
   let nameValue = nameField.value;
   let regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
@@ -56,17 +81,18 @@ function nameValidation() {
   }
 }
 
-//Email Validation
+//Email
 function emailValidation() {
-  const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-  if (regex.test(emailInput.value)) {
+  let emailValue = emailInput.value;
+  let regEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  if (!regEmail.test(emailInput)) {
     return true;
   } else {
     return false;
   }
 }
 
-//Registration for Activities   <--Check-->
+//Registration for Activities
 function registrationValidation() {
   let registrationValue = registerForActivitiesFieldset.value;
   let regActivities = /^[a-zA-Z]+ [a-zA-Z]+$/; 
@@ -76,17 +102,12 @@ function registrationValidation() {
     return true;
   }
 }
-/*function registration() {
-  for (let i = 0; i < checkboxes.length; i++) {
 
-  }
-}*/
-
-//Card Number
+//CC Number
 function cardnoValidation() {
-  let cardno = nameField.value;
-  let regName = /^(?:3[47][0-9]{13})$/;
-  if(!regName.test(cardno)){
+  let cardnoValue = cardNumberInput.value;
+  let regCCNum = /^(?:3[47][0-9]{13})$/;
+  if(!regCCNum.test(cardNumberInput)){
     return false;
   } else{
     return true;
@@ -96,9 +117,9 @@ function cardnoValidation() {
 
 //Zip
 function zipValidation() {
-  let zipValue = zipField.value;
-  let zipName = /(^\d{5}$)|(^\d{5}-\d{4}$)/; 
-  if(!zipName.test(zipValue)){
+  let zipValue = zipInput.value;
+  let regZip = /(^\d{5}$)|(^\d{5}-\d{4}$)/; 
+  if(!regZip.test(zipInput)){
     return false;
   } else{
     return true;
@@ -106,35 +127,34 @@ function zipValidation() {
 }
 
 //CVV
-function cvv() {
-  const cvv = document.getElementById("cvv");
-  const regex = /^\d{3}$/;
-  return regex.test(cvv.value);
-}
-
-cvv();
-
-
-//Credit Card
-function ccValidation() {
-  if (PaymentMethodChangeEvent.value === "credit-card") {
-    if (cardNumber() && zipcode() && ConvolverNode()) {
-      return true;
-    } else {
-      return false;
-    }
-    } else {
-      return true;
+function cvvValidation() {
+  let cvvValue = cvvInput.value;
+  let regCvv = /^\d{3}$/;
+  if(!regCvv.test(cvvInput)){
+    return false;
+  } else{
+    return true;
   }
 }
 
-//Event Listener ccValidation
+/*
+
+
+
+//Event Listener Form Submit
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   
   let nameOutput = nameValidation();
+
+  /*Is it neccessary to create var for all?
+  
   let emailOutput = emailValidation();
+  let registerForActivitiesFieldset = registrationValidation();
+  let cardNumberInput = cardnoValidation();
+  let zipInput = zipValidation();
+  let cvvInput = cvvValidation();*/
 
 });
 
