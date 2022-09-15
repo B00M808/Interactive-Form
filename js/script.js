@@ -45,7 +45,7 @@ design.addEventListener('change', (e) => {
   }
 })
 
-//Form Validation
+//Form Validation****
 function nameValidation() {
   let nameValue = nameField.value;
   let regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
@@ -56,9 +56,8 @@ function nameValidation() {
   }
 }
 
-//Name Validation
+//Email Validation
 function emailValidation() {
-  
   const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
   if (regex.test(emailInput.value)) {
     return true;
@@ -67,12 +66,46 @@ function emailValidation() {
   }
 }
 
-function registration() {
+//Registration for Activities   <--Check-->
+function registrationValidation() {
+  let registrationValue = registerForActivitiesFieldset.value;
+  let regActivities = /^[a-zA-Z]+ [a-zA-Z]+$/; 
+  if(!regActivities.test(registrationValue)){
+    return false;
+  } else{
+    return true;
+  }
+}
+/*function registration() {
   for (let i = 0; i < checkboxes.length; i++) {
 
   }
+}*/
+
+//Card Number
+function cardnoValidation() {
+  let cardno = nameField.value;
+  let regName = /^(?:3[47][0-9]{13})$/;
+  if(!regName.test(cardno)){
+    return false;
+  } else{
+    return true;
+  }
 }
 
+
+//Zip
+function zipValidation() {
+  let zipValue = zipField.value;
+  let zipName = /(^\d{5}$)|(^\d{5}-\d{4}$)/; 
+  if(!zipName.test(zipValue)){
+    return false;
+  } else{
+    return true;
+  }
+}
+
+//CVV
 function cvv() {
   const cvv = document.getElementById("cvv");
   const regex = /^\d{3}$/;
@@ -104,6 +137,7 @@ form.addEventListener("submit", (e) => {
   let emailOutput = emailValidation();
 
 });
+
 
 //Accessiblity
 
