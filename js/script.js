@@ -70,7 +70,7 @@ function paymentInfo() {
       form.addEventListener("submit", (e) => {
         e.preventDefault();
 
-//
+//What is this code below
 
 function ccValidation() {
   if (PaymentMethodChangeEvent.value === "credit-card") {
@@ -158,13 +158,6 @@ function cvvValidation() {
 
 
 
-//Event Listener Form Submit
-const form = document.querySelector("form");
-form.addEventListener("submit", (e) => {
-  e.preventDefault();
-  
-  let nameOutput = nameValidation();
-
   /*Is it neccessary to create var for all?
   
   let emailOutput = emailValidation();
@@ -187,9 +180,61 @@ form.addEventListener("focus", () => checkboxes.classList.add('focused'), true);
   }
 }
 
+//Event Listener Form Submit
+const form = document.querySelector("form");
+form.addEventListener("submit", (e) => {
+  e.preventDefault();
 
 
+  
+  const email = document.getElementById("mail");
+  const emailError = document.querySelector("#mail + span.error");
+  
+  email.addEventListener("input", (e) => {
 
+  // Each time the user types something, we check if the
+  // form fields are valid.
+
+  if (email.validity.valid) {
+    // In case there is an error message visible, if the field
+    // is valid, we remove the error message.
+    emailError.textContent = ""; // Reset the content of the message
+    emailError.className = "error"; // Reset the visual state of the message
+  } else {
+    // If there is still an error, show the correct error
+    showError();
+  }
+});
+
+
+form.addEventListener("submit", (event) => {
+  // if the email field is valid, we let the form submit
+  if (!email.validity.valid) {
+    // If it isn't, we display an appropriate error message
+    showError();
+    // Then we prevent the form from being sent by canceling the event
+    event.preventDefault();
+  }
+});
+
+function showError() {
+  if (email.validity.valueMissing) {
+    // If the field is empty,
+    // display the following error message.
+    emailError.textContent = "You need to enter an e-mail address.";
+  } else if (email.validity.typeMismatch) {
+    // If the field doesn't contain an email address,
+    // display the following error message.
+    emailError.textContent = "Entered value needs to be an e-mail address.";
+  } else if (email.validity.tooShort) {
+    // If the data is too short,
+    // display the following error message.
+    emailError.textContent = `Email should be at least ${email.minLength} characters; you entered ${email.value.length}.`;
+  }
+
+  // Set the styling appropriately
+  emailError.className = "error active";
+}
 
 
 
