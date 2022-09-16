@@ -47,13 +47,30 @@ design.addEventListener('change', (e) => {
 
 
 //Register for Activities
-function registration() {
-  for (let i = 0; i < checkboxes.length; i++) {
 
-  }
-}
 
 //Payment Info
+const creditCardInput = document.getElementById("credit-card");
+const paypalInput = document.getElementById("paypal");
+const bitcoinInput = document.getElementById("bitcoin");
+document.getElementById("paypal").style.visibility = "none"; 
+document.getElementById("bitcoin").style.visibility = "none"; 
+
+//payment.children
+
+function paymentInfo() {
+  const paymentInput = document.getElementById("payment").children;
+   
+  var i;
+  for(i = 0; i < doc.length; i++) {
+      doc[i].style.color = "white";
+      doc[i].style.backgroundColor = "green";
+
+      const  = document.querySelector("");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+
+//
 
 function ccValidation() {
   if (PaymentMethodChangeEvent.value === "credit-card") {
@@ -161,6 +178,14 @@ form.addEventListener("submit", (e) => {
 
 //Accessiblity
 
+const checkboxes = activities;
+function registration() {
+  for (let i = 0; i < checkboxes.length; i++) {
+form.addEventListener("focus", () => checkboxes.classList.add('focused'), true);
+  form.addEventListener("blur", () => checkboxes.classList.remove('focused'), true);
+
+  }
+}
 
 
 
