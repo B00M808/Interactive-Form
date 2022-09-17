@@ -5,6 +5,9 @@ const registerForActivitiesFieldset = document.getElementById("activities");
 const cardNumberInput = document.getElementById("cc-num");
 const zipInput = document.getElementById("zip");
 const cvvInput = document.getElementById("cvv");
+const designSelect = document.getElementById("design");
+const sizeSelect = document.getElementById("size");
+const colorSelect = document.getElementById("color");
 
 
 // focusing name
@@ -15,46 +18,40 @@ nameField.focus();
 
 //Hide or Show "Other Job Role"
 
-const jobRole = document.querySelectorAll("#title");
+const jobRoleSelect = document.querySelector("#title");
 const fieldset = document.querySelectorAll("fieldset");
 const otherJobRole = document.getElementById("other-job-role");
-otherJobRole.style.display = 'none';
-// jobRole.addEventListener('click', () => {
-//   if (e.target.value === 'other') {
-//     otherJobRole.style.display = 'block';
-//   }
-// })
 
-// //T-Shirt Info Section
-// color.disabled = true;
-// design.addEventListener("change", (e) => {
-//   color.disabled = false;
-//   for (let i = 1; i < color.length; i ++) {
-//     const targetValue = e.target.value;
-//     const dataTheme = colorOptions[i].getAttribute("data-theme");
-//     //console.log(targetValue);
-//     //console.log(dataTheme);
 
-//     if (targetValue === dataTheme) {
-//       colorOptions[i].hidden = false;
-//       colorOptions[i].setAttribute('selected', true);
-//     } else {
-//       colorOptions[i].hidden = true;
-//       colorOptions[i].removeAttribute('selected');
-//     }
-//   }
-// })
+
+//T-Shirt Info Section
+colorSelect.disabled = true;
+designSelect.addEventListener("change", (e) => {
+  colorSelect.disabled = false;
+  for (let i = 0; i < colorSelect.options.length; i ++) {
+    const targetValue = e.target.value;
+    const dataTheme = colorSelect[i].getAttribute("data-theme");
+    if (targetValue === dataTheme) {
+      colorSelect[i].hidden = false;
+      colorSelect[i].setAttribute('selected', true);
+    } else {
+      colorSelect[i].hidden = true;
+      colorSelect[i].removeAttribute('selected');
+    }
+  }
+})
 
 
 // //Register for Activities
 
 
-// //Payment Info
-// const creditCardInput = document.getElementById("credit-card");
-// const paypalInput = document.getElementById("paypal");
-// const bitcoinInput = document.getElementById("bitcoin");
-// document.getElementById("paypal").style.visibility = "none"; 
-// document.getElementById("bitcoin").style.visibility = "none"; 
+//Payment Info
+
+const creditCardInput = document.getElementById("credit-card");
+const paypalInput = document.getElementById("paypal");
+const bitcoinInput = document.getElementById("bitcoin");
+document.getElementById("paypal").style.visibility = "none"; 
+document.getElementById("bitcoin").style.visibility = "none"; 
 
 // //payment.children
 
@@ -146,6 +143,19 @@ function cvvValidation() {
   }
 }
 
+function jobRole(){
+  otherJobRole.style.display = 'none';
+  jobRoleSelect.addEventListener('change', (e) => {
+    if (e.target.value === 'other') {
+      otherJobRole.style.display = 'block';
+    } else{
+      otherJobRole.style.display = 'none';
+    }
+  })
+}
+
+jobRole();
+
 /*
   /*Is it neccessary to create var for all?
   
@@ -164,7 +174,6 @@ const checkboxes = document.querySelectorAll('#activities-box input[type="checkb
 
 //Registration for Activities
 function registrationValidation() {
-  let registrationValue = registerForActivitiesFieldset.value;
   let activitiesTotal = document.getElementById("activities-cost");
   let totalCost = 0;
   for (let i = 0; i < checkboxes.length; i++) {
@@ -173,12 +182,17 @@ function registrationValidation() {
 
     checkboxes[i].addEventListener('change', (e) => {
       let dataCost = parseInt(e.target.getAttribute("data-cost"));
-      console.log(dataCost);
+      if(e.target.checked){
+        totalCost += dataCost;
+      } else {
+        totalCost -= dataCost;
+      }
+      activitiesTotal.innerHTML = "Total: $" +totalCost;
     })
   }
 }
-registrationValidation();
 
+registrationValidation();
 
 //Event Listener Form Submit
 const form = document.querySelector("form");
@@ -186,7 +200,8 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   let validName = nameValidation();
   let validEmail = emailValidation();
-  let validRegisterActivity
+
+
   console.log(validName);
   console.log(validEmail);
 
@@ -259,8 +274,6 @@ form.addEventListener("submit", (e) => {
 let totalAmount = 0;
 const allCheckbox = document.querySelectorAll("input[type="checkboxes"]");
 const totalAmount = document.getElementById("activities-cost");
-
-
 for (let i = 0; i < allCheckbox.length; i++) {
   allCheckbox[i].addEventListener("Change", (e) => {
     totalAmount += parseInt(allCheckbox[i].getAttribute("data-cost"));
