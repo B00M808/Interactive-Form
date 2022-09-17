@@ -9,7 +9,6 @@ const designSelect = document.getElementById("design");
 const sizeSelect = document.getElementById("size");
 const colorSelect = document.getElementById("color");
 
-
 // focusing name
 nameField.focus();
 
@@ -82,11 +81,11 @@ function nameValidation() {
 //Email
 function emailValidation() {
   let emailValue = emailInput.value;
-  let regEmail = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+  let regEmail =  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   if (!regEmail.test(emailValue)) {
-    return true;
-  } else {
     return false;
+  } else {
+    return true;
   }
 }
 
@@ -145,7 +144,6 @@ function registrationValidation() {
   let activitiesTotal = document.getElementById("activities-cost");
   let totalCost = 0;
   for (let i = 0; i < checkboxes.length; i++) {
-
     checkboxes[i].addEventListener('change', (e) => {
       let dataCost = parseInt(e.target.getAttribute("data-cost"));
       if(e.target.checked){
@@ -154,11 +152,40 @@ function registrationValidation() {
         totalCost -= dataCost;
       }
       activitiesTotal.innerHTML = "Total: $" +totalCost;
+
+      if(totalCost == 0){
+        return false;
+      } else{
+        return true;
+      }
+
+    })
+
+    // Accessibility
+    checkboxes[i].addEventListener('focus', (e) => {
+      e.target.parentNode.classList.add("focus");
+    })
+
+    checkboxes[i].addEventListener('blur', (e) => {
+      e.target.parentNode.classList.remove("focus");
     })
   }
 }
 
-registrationValidation();
+
+
+function notValidForm(element){
+  element.parentNode.classList.add("not-valid");
+  element.parentNode.classList.remove("valid");
+  element.parentNode.lastElementChild.style.display = "inherit";
+}
+
+function validForm(element){
+  element.parentNode.classList.add("valid");
+  element.parentNode.classList.remove("not-valid");
+  element.parentNode.lastElementChild.style.display = "none";
+  element.parentNode.querySelector(".hint").style.display = "none";
+}
 
 //Event Listener Form Submit
 const form = document.querySelector("form");
@@ -166,82 +193,23 @@ form.addEventListener("submit", (e) => {
   e.preventDefault();
   let validName = nameValidation();
   let validEmail = emailValidation();
+  if(validName == false){
+    notValidForm(nameField);
+  } else {
+    validForm(nameField)
+  }
 
+  if(validEmail == false){
+    notValidForm(emailInput);
+  } else {
+    validForm(emailInput)
+  }
 
-  console.log(validName);
-  console.log(validEmail);
+  let validRegister = registrationValidation();
+  if(validRegister == false){
+    notValidForm(validRegister);
+  } else {
+    validForm(validRegister)
+  }
 
 })
-//   // const email = document.getElementById("mail");
-//   const emailError = document.querySelector("#mail + span.error");
-  
-//   email.addEventListener("input", (e) => {
-
-  // Each time the user types something, we check if the
-  // form fields are valid.
-
-  // function nameValidation() {
-  //   const nameInput = document.getElementById("name");
-  //   const regex = /^\D\w+\s\w+\D$/;
-  //   if (regex.test(nameInput.value))
-  //   {
-  //     return true;
-  //   } else {
-  //     nameInput.parentElement.className = ".not-valid";
-  //     return false;
-  //   }
-  // }
-  // nameValidation();
-
-  // if (email.validity.valid) {
-  //   // In case there is an error message visible, if the field
-  //   // is valid, we remove the error message.
-  //   emailError.textContent = ""; // Reset the content of the message
-  //   emailError.className = "error"; // Reset the visual state of the message
-  // } else {
-  //   // If there is still an error, show the correct error
-  //   showError();
-  // }
-// });
-
-
-// form.addEventListener("submit", (event) => {
-//   // if the email field is valid, we let the form submit
- 
-// });
-
-// function showError() {
-//   if (email.validity.valueMissing) {
-//     // If the field is empty,
-//     // display the following error message.
-//     emailError.textContent = "You need to enter an e-mail address.";
-//   } else if (email.validity.typeMismatch) {
-//     // If the field doesn't contain an email address,
-//     // display the following error message.
-//     emailError.textContent = "Entered value needs to be an e-mail address.";
-//   } else if (email.validity.tooShort) {
-//     // If the data is too short,
-//     // display the following error message.
-//     emailError.textContent = `Email should be at least ${email.minLength} characters; you entered ${email.value.length}.`;
-//   }
-
-//   // Set the styling appropriately
-//   emailError.className = "error active";
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
