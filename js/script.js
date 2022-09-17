@@ -13,15 +13,12 @@ const colorSelect = document.getElementById("color");
 // focusing name
 nameField.focus();
 
-//const jobRole = document.getElementById('select');
-//const otherJobRole = document.getElementsByTagName('input');
 
-//Hide or Show "Other Job Role"
+//Job Role + Other Job Role
 
 const jobRoleSelect = document.querySelector("#title");
 const fieldset = document.querySelectorAll("fieldset");
 const otherJobRole = document.getElementById("other-job-role");
-
 
 
 //T-Shirt Info Section
@@ -42,49 +39,34 @@ designSelect.addEventListener("change", (e) => {
 })
 
 
-// //Register for Activities
-
-
 //Payment Info
-
+const paymentSelect = document.getElementById("payment");
 const creditCardInput = document.getElementById("credit-card");
 const paypalInput = document.getElementById("paypal");
 const bitcoinInput = document.getElementById("bitcoin");
-document.getElementById("paypal").style.visibility = "none"; 
-document.getElementById("bitcoin").style.visibility = "none"; 
 
-// //payment.children
+paymentSelect.children[1].selected =true;
 
-// function paymentInfo() {
-//   const paymentInput = document.getElementById("payment").children;
-   
-//   var i;
-//   for(i = 0; i < doc.length; i++) {
-//       doc[i].style.color = "white";
-//       doc[i].style.backgroundColor = "green";
+paymentSelect.addEventListener("change", (e) => {
+  for(let i = 0; i < paymentSelect.options.length; i++){
+    if(e.target.value === "credit-card"){
+      creditCardInput.style.display = "block";
+      paypalInput.style.display = "none";
+      bitcoinInput.style.display = "none";
+    } else if(e.target.value === "paypal"){
+      creditCardInput.style.display = "none";
+      paypalInput.style.display = "block";
+      bitcoinInput.style.display = "none";
+    } else if(e.target.value === "bitcoin"){
+      creditCardInput.style.display = "none";
+      paypalInput.style.display = "none";
+      bitcoinInput.style.display = "block";
+    }
+  }
+})
 
-//       const val = document.querySelector("");
-//       form.addEventListener("submit", (e) => {
-//         e.preventDefault();
-//       })
-//     }
-//   }
 
-//What is this code below
-
-// function ccValidation() {
-//   if (PaymentMethodChangeEvent.value === "credit-card") {
-//     if (cardNumber() && zipcode() && cvv()) {
-//       return true;
-//     } else {
-//       return false;
-//     }
-//     } else {
-//       return true;
-//   }
-// }
-//conditional include payWithSelect variable: if (payWithSelect.value === "credit-card") {}
-//Form Validation****
+//Form Validation
 
 //Name
 function nameValidation() {
@@ -143,6 +125,7 @@ function cvvValidation() {
   }
 }
 
+//Hide or Show "Other Job Role"
 function jobRole(){
   otherJobRole.style.display = 'none';
   jobRoleSelect.addEventListener('change', (e) => {
@@ -156,29 +139,12 @@ function jobRole(){
 
 jobRole();
 
-/*
-  /*Is it neccessary to create var for all?
-  
-  let emailOutput = emailValidation();
-  let registerForActivitiesFieldset = registrationValidation();
-  let cardNumberInput = cardnoValidation();
-  let zipInput = zipValidation();
-  let cvvInput = cvvValidation();*/
-
-// });
-
-
-//Accessiblity
-
-const checkboxes = document.querySelectorAll('#activities-box input[type="checkbox"]');
-
 //Registration for Activities
+const checkboxes = document.querySelectorAll('#activities-box input[type="checkbox"]');
 function registrationValidation() {
   let activitiesTotal = document.getElementById("activities-cost");
   let totalCost = 0;
   for (let i = 0; i < checkboxes.length; i++) {
-// form.addEventListener("focus", () => checkboxes.classList.add('focused'), true);
-//   form.addEventListener("blur", () => checkboxes.classList.remove('focused'), true);
 
     checkboxes[i].addEventListener('change', (e) => {
       let dataCost = parseInt(e.target.getAttribute("data-cost"));
@@ -270,52 +236,6 @@ form.addEventListener("submit", (e) => {
 
 
 
-/*//total amount
-let totalAmount = 0;
-const allCheckbox = document.querySelectorAll("input[type="checkboxes"]");
-const totalAmount = document.getElementById("activities-cost");
-for (let i = 0; i < allCheckbox.length; i++) {
-  allCheckbox[i].addEventListener("Change", (e) => {
-    totalAmount += parseInt(allCheckbox[i].getAttribute("data-cost"));
-
-    allCheckbox[i].parentElement.focus();
-
-    allCheckbox[i].parentElement.classList = "focus";
-    //console.log(totalAmount);
-    totalAmount.textContent = //interpolation?
-
-    if (e.target === allCheckbox[1] && allCheckbox[3].checked) {
-      allCheck[3].checked = false;
-
-      allCheckbox[3].parentElement.blur();
-      allCheckbox[3].parentElement,classList = "";
-      totalAmount -+ 100;
-    } else if (e.target === allCheckbox[3] && allCheckbox[1].checked) {
-      allCheckbox[1].checked = false;
-
-      allCheckbox[1].parentElement.blur();
-
-      allCheckbox[1].parentElement.classList = "";
-      totalAmount -= 100;
-    } else if (e.target === allCheckbox[2] && allCheckbox[4].checked) {
-      allCheckbox[4].checked = false;
-      allCheckbox[4].parentElement.blur();
-      allCheckbox[4].parentElement.classList = "";
-      totalAmount -= 100;
-    } else if (e.target === allCheckbox[4] && allCheckbox[2].checked) {
-      allCheckbox[2].checked = false;
-      allCheckbox[2].parentElement.blur();
-      allCheckbox[2].parentElement.classList = "";
-      totalAmount -= 100;
-    }
-  });
-}
-    }
-    } 
-  })
-}
-
-*/
 
 
 
