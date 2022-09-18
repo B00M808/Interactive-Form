@@ -139,17 +139,15 @@ function jobRole(){
 jobRole();
 
 function notValidForm(element){
-  element.parentNode.classList.add("not-valid");
-  element.parentNode.classList.remove("valid");
-  // element.parentNode.lastElementChild.style.display = "inherit";
-  element.parentNode.querySelector(".hint").style.display = "block";
+  element.parentElement.classList.add("not-valid");
+  element.parentElement.classList.remove("valid");
+  element.parentElement.querySelector(".hint").style.display = "block";
 }
 
 function validForm(element){
-  element.parentNode.classList.add("valid");
-  element.parentNode.classList.remove("not-valid");
-  // element.parentNode.lastElementChild.style.display = "none";
-  element.parentNode.querySelector(".hint").style.display = "none";
+  element.parentElement.classList.add("valid");
+  element.parentElement.classList.remove("not-valid");
+  element.parentElement.querySelector(".hint").style.display = "none";
 
 }
 
@@ -168,6 +166,15 @@ function registrationValidation() {
       }
       activitiesTotal.innerHTML = "Total: $" +totalCost;
 
+       // Accessibility
+    checkboxes[i].addEventListener('focus', (e) => {
+      e.target.parentNode.classList.add("focus");
+    })
+
+    checkboxes[i].addEventListener('blur', (e) => {
+      e.target.parentNode.classList.remove("focus");
+    })
+
       if(totalCost == 0){
         document.getElementById("activities").classList.add("not-valid");
         document.getElementById("activities").classList.remove("valid");
@@ -180,15 +187,6 @@ function registrationValidation() {
         return true;
       }
 
-    })
-
-    // Accessibility
-    checkboxes[i].addEventListener('focus', (e) => {
-      e.target.parentNode.classList.add("focus");
-    })
-
-    checkboxes[i].addEventListener('blur', (e) => {
-      e.target.parentNode.classList.remove("focus");
     })
   }
 }
