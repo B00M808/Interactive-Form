@@ -1,4 +1,4 @@
-//Create a var to reference the "name"
+//Created Variables to Reference Elements
 const nameField = document.getElementById('name');
 const emailInput = document.getElementById("email");
 const registerForActivitiesFieldset = document.getElementById("activities");
@@ -14,13 +14,13 @@ nameField.focus();
 
 
 //Job Role + Other Job Role
-
 const jobRoleSelect = document.querySelector("#title");
 const fieldset = document.querySelectorAll("fieldset");
 const otherJobRole = document.getElementById("other-job-role");
 
 
 //T-Shirt Info Section
+//HTML to get the element data theme
 colorSelect.disabled = true;
 designSelect.addEventListener("change", (e) => {
   colorSelect.disabled = false;
@@ -44,8 +44,8 @@ const creditCardInput = document.getElementById("credit-card");
 const paypalInput = document.getElementById("paypal");
 const bitcoinInput = document.getElementById("bitcoin");
 
-paymentSelect.children[1].selected =true;
-
+paymentSelect.children[1].selected =true; //selecting the 1st element by default
+//show or hide elements based on what is selected by end user using the display property, created a for loop to go through each selection
 paymentSelect.addEventListener("change", (e) => {
   for(let i = 0; i < paymentSelect.options.length; i++){
     if(e.target.value === "credit-card"){
@@ -66,12 +66,12 @@ paymentSelect.addEventListener("change", (e) => {
 
 
 //Form Validation
-
+//Created helper function, Utilized RegExp test() method: if it finds a match, it returns true, otherwise return false
 //Name
 function nameValidation() {
   let nameValue = nameField.value;
   let regName = /^[a-zA-Z]+ [a-zA-Z]+$/;
-  if(!regName.test(nameValue)){
+  if(!regName.test(nameValue)){    
     return false;
   } else{
     return true;
@@ -138,6 +138,7 @@ function jobRole(){
 
 jobRole();
 
+//Utilized parentElement, display block or none
 function notValidForm(element){
   element.parentElement.classList.add("not-valid");
   element.parentElement.classList.remove("valid");
@@ -152,13 +153,14 @@ function validForm(element){
 }
 
 //Registration for Activities
+//display checkboxes, declare element of 0 var, decrease or increase/checked or unchecked
 const checkboxes = document.querySelectorAll('#activities-box input[type="checkbox"]');
 function registrationValidation() {
   let activitiesTotal = document.getElementById("activities-cost");
   let totalCost = 0;
   for (let i = 0; i < checkboxes.length; i++) {
     checkboxes[i].addEventListener('change', (e) => {
-      let dataCost = parseInt(e.target.getAttribute("data-cost"));
+      let dataCost = parseInt(e.target.getAttribute("data-cost"));   //data cost property 
       if(e.target.checked){
         totalCost += dataCost;
       } else {
@@ -167,6 +169,7 @@ function registrationValidation() {
       activitiesTotal.innerHTML = "Total: $" +totalCost;
 
        // Accessibility
+       //focus & blur reflected in CSS 
     checkboxes[i].addEventListener('focus', (e) => {
       e.target.parentNode.classList.add("focus");
     })
