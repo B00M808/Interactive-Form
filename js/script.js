@@ -93,7 +93,7 @@ function emailValidation() {
 //CC Number
 function cardnoValidation() {
   let cardnoValue = cardNumberInput.value;
-  let regCCNum = /^(?:3[47][0-9]{13})$/;
+  let regCCNum = /(?:\d[ -]*?){13,16}/g;
   if(!regCCNum.test(cardnoValue)){
     return false;
   } else{
@@ -138,6 +138,21 @@ function jobRole(){
 
 jobRole();
 
+function notValidForm(element){
+  element.parentNode.classList.add("not-valid");
+  element.parentNode.classList.remove("valid");
+  // element.parentNode.lastElementChild.style.display = "inherit";
+  element.parentNode.querySelector(".hint").style.display = "block";
+}
+
+function validForm(element){
+  element.parentNode.classList.add("valid");
+  element.parentNode.classList.remove("not-valid");
+  // element.parentNode.lastElementChild.style.display = "none";
+  element.parentNode.querySelector(".hint").style.display = "none";
+
+}
+
 //Registration for Activities
 const checkboxes = document.querySelectorAll('#activities-box input[type="checkbox"]');
 function registrationValidation() {
@@ -154,8 +169,14 @@ function registrationValidation() {
       activitiesTotal.innerHTML = "Total: $" +totalCost;
 
       if(totalCost == 0){
+        document.getElementById("activities").classList.add("not-valid");
+        document.getElementById("activities").classList.remove("valid");
+        document.getElementById("activities").lastElementChild.style.display = "inherit";
         return false;
       } else{
+        document.getElementById("activities").classList.add("valid");
+        document.getElementById("activities").classList.remove("not-valid");
+        document.getElementById("activities").lastElementChild.style.display = "none";
         return true;
       }
 
@@ -172,44 +193,55 @@ function registrationValidation() {
   }
 }
 
+let validRegister = registrationValidation();
 
-
-function notValidForm(element){
-  element.parentNode.classList.add("not-valid");
-  element.parentNode.classList.remove("valid");
-  element.parentNode.lastElementChild.style.display = "inherit";
-}
-
-function validForm(element){
-  element.parentNode.classList.add("valid");
-  element.parentNode.classList.remove("not-valid");
-  element.parentNode.lastElementChild.style.display = "none";
-  element.parentNode.querySelector(".hint").style.display = "none";
-}
 
 //Event Listener Form Submit
 const form = document.querySelector("form");
 form.addEventListener("submit", (e) => {
-  e.preventDefault();
+
   let validName = nameValidation();
   let validEmail = emailValidation();
+  let cardNoOutput = cardnoValidation();
+  let zipValidationOutput = zipValidation();
+  let cvvValidationOutput = cvvValidation();
+
   if(validName == false){
+    e.preventDefault();
     notValidForm(nameField);
   } else {
     validForm(nameField)
   }
 
   if(validEmail == false){
+    e.preventDefault();
     notValidForm(emailInput);
   } else {
     validForm(emailInput)
   }
 
-  let validRegister = registrationValidation();
   if(validRegister == false){
-    notValidForm(validRegister);
-  } else {
-    validForm(validRegister)
+    e.preventDefault();
   }
 
+  if(cardNoOutput == false){
+    e.preventDefault();
+    notValidForm(cardNumberInput);
+  } else{
+    validForm(cardNumberInput);
+  }
+
+  if(zipValidationOutput == false){
+    e.preventDefault();
+    notValidForm(zipInput)
+  } else {
+    validForm(zipInput)
+  }
+
+  if(cvvValidationOutput == false){
+    e.preventDefault();
+    notValidForm(cvvInput);
+  } else{
+    validForm(cvvInput);
+  }
 })
