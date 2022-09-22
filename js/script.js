@@ -50,8 +50,8 @@ paymentSelect.addEventListener("change", (e) => {
   for(let i = 0; i < paymentSelect.options.length; i++){
     if(e.target.value === "credit-card"){
       creditCardInput.style.display = "block";
-      paypalInput.style.display = "none";
-      bitcoinInput.style.display = "none";
+      paypalInput.style.display = "block";
+      bitcoinInput.style.display = "block";
     } else if(e.target.value === "paypal"){
       creditCardInput.style.display = "none";
       paypalInput.style.display = "block";
@@ -93,7 +93,7 @@ function emailValidation() {
 //CC Number
 function cardnoValidation() {
   let cardnoValue = cardNumberInput.value;
-  let regCCNum = /(?:\d[ -]*?){13,16}/g;
+  let regCCNum = /^\d{13,16}$/;
   if(!regCCNum.test(cardnoValue)){
     return false;
   } else{
@@ -155,12 +155,18 @@ function validForm(element){
 //Registration for Activities
 //display checkboxes, declare element of 0 var, decrease or increase/checked or unchecked
 const checkboxes = document.querySelectorAll('#activities-box input[type="checkbox"]');
+let activityFalse = false;
 function registrationValidation() {
   let activitiesTotal = document.getElementById("activities-cost");
   let totalCost = 0;
   for (let i = 0; i < checkboxes.length; i++) {
     checkboxes[i].addEventListener('change', (e) => {
-      let dataCost = parseInt(e.target.getAttribute("data-cost"));   //data cost property 
+      let dataCost = parseInt(e.target.getAttribute("data-cost"));   //data cost property
+      if(!checkboxes[i].checked){
+        activityFalse = false
+      } else {
+        activityFalse = true;
+      }
       if(e.target.checked){
         totalCost += dataCost;
       } else {
@@ -221,8 +227,15 @@ form.addEventListener("submit", (e) => {
     validForm(emailInput)
   }
 
-  if(validRegister == false){
+  if(activityFalse == false){
     e.preventDefault();
+    document.getElementById("activities").classList.add("not-valid");
+    document.getElementById("activities").classList.remove("valid");
+    document.getElementById("activities").lastElementChild.style.display = "inherit";
+  } else{
+    document.getElementById("activities").classList.add("valid");
+    document.getElementById("activities").classList.remove("not-valid");
+    document.getElementById("activities").lastElementChild.style.display = "none";
   }
 
   if(cardNoOutput == false){
