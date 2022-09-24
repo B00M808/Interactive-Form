@@ -45,13 +45,17 @@ const paypalInput = document.getElementById("paypal");
 const bitcoinInput = document.getElementById("bitcoin");
 
 paymentSelect.children[1].selected =true; //selecting the 1st element by default
-//show or hide elements based on what is selected by end user using the display property, created a for loop to go through each selection
-paymentSelect.addEventListener("change", (e) => {
+//show or hide elements based on what is selected by end user using the display property, created a for loop to go through each selection  paypalInput.style.display = "none";
+paypalInput.style.display = "none";
+bitcoinInput.style.display = "none";
+  
+  paymentSelect.addEventListener("change", (e) => {
+  
   for(let i = 0; i < paymentSelect.options.length; i++){
     if(e.target.value === "credit-card"){
       creditCardInput.style.display = "block";
-      paypalInput.style.display = "block";
-      bitcoinInput.style.display = "block";
+      paypalInput.style.display = "none";
+      bitcoinInput.style.display = "none";
     } else if(e.target.value === "paypal"){
       creditCardInput.style.display = "none";
       paypalInput.style.display = "block";
